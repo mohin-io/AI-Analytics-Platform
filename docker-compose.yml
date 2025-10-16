@@ -1,0 +1,69 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: unified-ai-api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+      - ./models:/app/models
+      - ./logs:/app/logs
+      - ./mlruns:/app/mlruns
+    environment:
+      - PYTHONPATH=/app
+      - UNIFIED_AI_API_HOST=0.0.0.0
+      - UNIFIED_AI_API_PORT=8000
+    command: uvicorn src.api.main:app --host 0.0.0.0 --port 8000 --reload
+    restart: unless-stopped
+    networks:
+      - unified-ai-network
+
+  dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: unified-ai-dashboard
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./data:/app/data
+      - ./models:/app/models
+      - ./logs:/app/logs
+      - ./mlruns:/app/mlruns
+    environment:
+      - PYTHONPATH=/app
+      - UNIFIED_AI_DASHBOARD_PORT=8501
+    command: streamlit run src/dashboard/app.py --server.port 8501 --server.address 0.0.0.0
+    restart: unless-stopped
+    networks:
+      - unified-ai-network
+    depends_on:
+      - api
+
+  mlflow:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: unified-ai-mlflow
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./mlruns:/app/mlruns
+    command: mlflow ui --host 0.0.0.0 --port 5000 --backend-store-uri /app/mlruns
+    restart: unless-stopped
+    networks:
+      - unified-ai-network
+
+networks:
+  unified-ai-network:
+    driver: bridge
+
+volumes:
+  data-volume:
+  models-volume:
+  logs-volume:
+  mlruns-volume:

@@ -1,0 +1,194 @@
+# Unified AI Analytics Platform Configuration
+
+# Data Settings
+data:
+  raw_dir: "data/raw"
+  processed_dir: "data/processed"
+  sample_dir: "data/sample"
+  supported_formats:
+    - "csv"
+    - "json"
+    - "parquet"
+    - "excel"
+    - "sql"
+
+# Model Training Settings
+training:
+  test_size: 0.2
+  validation_size: 0.1
+  random_seed: 42
+  cv_folds: 5
+  n_jobs: -1  # Use all CPU cores
+  max_training_time: 3600  # seconds
+  early_stopping_rounds: 10
+
+# Preprocessing Settings
+preprocessing:
+  missing_value_strategy: "median"  # mean, median, mode, knn, mice
+  scaling_strategy: "standard"  # standard, minmax, robust
+  encoding_strategy: "onehot"  # onehot, label, ordinal
+  outlier_detection: "iqr"  # iqr, zscore, isolation_forest
+  outlier_threshold: 1.5
+
+# Feature Engineering
+feature_engineering:
+  create_polynomial_features: false
+  polynomial_degree: 2
+  create_interaction_features: false
+  feature_selection_enabled: true
+  feature_selection_method: "mutual_info"  # mutual_info, chi2, rfe
+  max_features: null  # null = use all features
+
+# AutoML Settings
+automl:
+  enabled: true
+  n_trials: 100
+  timeout: 3600  # 1 hour
+  optimization_metric: "accuracy"  # or f1, roc_auc, rmse, r2
+  early_stopping: 10
+  algorithms:
+    - "logistic_regression"
+    - "random_forest"
+    - "xgboost"
+    - "lightgbm"
+    - "catboost"
+    - "svm"
+
+# Model Registry
+model_registry:
+  storage_path: "models"
+  versioning: true
+  auto_archive: true
+  max_versions: 5
+
+# Evaluation Settings
+evaluation:
+  classification_metrics:
+    - "accuracy"
+    - "precision"
+    - "recall"
+    - "f1_score"
+    - "roc_auc"
+    - "log_loss"
+  regression_metrics:
+    - "mae"
+    - "mse"
+    - "rmse"
+    - "r2"
+    - "mape"
+  clustering_metrics:
+    - "silhouette_score"
+    - "davies_bouldin_score"
+    - "calinski_harabasz_score"
+
+# Explainability Settings
+explainability:
+  shap_enabled: true
+  lime_enabled: true
+  feature_importance_enabled: true
+  partial_dependence_enabled: true
+  max_samples_for_shap: 1000  # Subsample for performance
+
+# API Settings
+api:
+  host: "0.0.0.0"
+  port: 8000
+  title: "Unified AI Analytics Platform API"
+  version: "v1"
+  debug: false
+  cors_enabled: true
+  cors_origins:
+    - "http://localhost:3000"
+    - "http://localhost:8501"
+  rate_limit: "100/minute"
+  max_file_size_mb: 100
+
+# Dashboard Settings
+dashboard:
+  host: "0.0.0.0"
+  port: 8501
+  title: "Unified AI Analytics Platform"
+  theme: "light"  # light, dark
+  max_upload_size_mb: 200
+  cache_enabled: true
+
+# MLflow Settings
+mlflow:
+  tracking_uri: "mlruns"
+  experiment_name: "unified_ai_experiments"
+  auto_log: true
+  log_models: true
+  log_artifacts: true
+  artifact_location: "mlruns/artifacts"
+
+# Logging Settings
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  log_dir: "logs"
+  log_format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  log_to_console: true
+  log_to_file: true
+  max_file_size_mb: 10
+  backup_count: 5
+
+# Performance Settings
+performance:
+  cache_enabled: true
+  cache_dir: ".cache"
+  parallel_processing: true
+  chunk_size: 10000
+  memory_limit_gb: 8
+
+# Security Settings
+security:
+  api_key_enabled: false
+  api_key_header: "X-API-Key"
+  jwt_enabled: false
+  jwt_secret: "change-this-secret-key"
+  jwt_algorithm: "HS256"
+  jwt_expiration_hours: 24
+
+# Monitoring Settings
+monitoring:
+  enabled: true
+  track_data_drift: true
+  track_model_drift: true
+  alert_threshold: 0.1
+  alert_email: "alerts@example.com"
+
+# Deployment Settings
+deployment:
+  environment: "development"  # development, staging, production
+  container_registry: "docker.io"
+  image_name: "unified-ai-platform"
+  image_tag: "latest"
+  kubernetes_enabled: false
+  kubernetes_namespace: "ml-platform"
+  replicas: 2
+  resources:
+    cpu_request: "500m"
+    cpu_limit: "2000m"
+    memory_request: "1Gi"
+    memory_limit: "4Gi"
+
+# Database Settings (Optional)
+database:
+  enabled: false
+  type: "postgresql"  # postgresql, mysql, sqlite
+  host: "localhost"
+  port: 5432
+  database: "unified_ai_db"
+  username: "user"
+  password: "password"
+  pool_size: 10
+  max_overflow: 20
+
+# Notifications Settings
+notifications:
+  enabled: false
+  email_enabled: false
+  slack_enabled: false
+  slack_webhook_url: ""
+  email_smtp_server: "smtp.gmail.com"
+  email_smtp_port: 587
+  email_from: "noreply@unified-ai.com"

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html><head>
+<title>Data Validation Report</title>
+<style>
+body { font-family: Arial, sans-serif; margin: 20px; }
+h1 { color: #333; }
+.summary { background: #f0f0f0; padding: 15px; border-radius: 5px; }
+.error { color: #d32f2f; }
+.warning { color: #f57c00; }
+.info { color: #0288d1; }
+.issue { margin: 10px 0; padding: 10px; border-left: 3px solid #ccc; }
+</style>
+</head><body>
+<h1>Data Validation Report</h1>
+<div class='summary'>
+<h2>Summary</h2>
+<p><strong>Status:</strong> PASSED</p>
+<p><strong>Total Issues:</strong> 7</p>
+<p><strong>Errors:</strong> 0</p>
+<p><strong>Warnings:</strong> 3</p>
+<p><strong>Info:</strong> 4</p>
+</div>
+<h2 class='warning'>Warnings</h2>
+<div class='issue warning'>
+<strong>[missing_values]</strong> Column 'age' has 12 missing values (11.76%)
+<br><em>Column: age</em>
+</div>
+<div class='issue warning'>
+<strong>[missing_values]</strong> Column 'salary' has 6 missing values (5.88%)
+<br><em>Column: salary</em>
+</div>
+<div class='issue warning'>
+<strong>[duplicate_rows]</strong> Found 2 duplicate rows (1.96%)
+</div>
+</body></html>
