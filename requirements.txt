@@ -128,3 +128,24 @@ onnxruntime>=1.15.0
 # Deployment
 docker>=6.1.0
 kubernetes>=27.2.0
+
+# Phase 4: Federated Learning
+cryptography>=41.0.0
+pycryptodome>=3.18.0
+
+# Phase 4: Model Optimization & Compression
+tensorflow-model-optimization>=0.7.0
+torch-pruning>=1.2.0
+
+# Phase 4: Edge Deployment
+coremltools>=7.0
+tf2onnx>=1.15.0
+
+# Phase 4: Performance Monitoring
+psutil>=5.9.0
+memory-profiler>=0.61.0
+
+# Phase 4: Advanced Visualization
+dash>=2.14.0
+bokeh>=3.3.0
+holoviews>=1.18.0
